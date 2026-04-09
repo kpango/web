@@ -1,5 +1,5 @@
 import type { PostEntry } from "@kpango/content";
-import { Badge, CardLink, ChevronRightIcon, PageHeader, Spinner, cn } from "@kpango/ui";
+import { Badge, CardLink, ChevronRightIcon, PageHeader, cn } from "@kpango/ui";
 import type { FC } from "hono/jsx";
 import { PageShell } from "../components/PageShell";
 import { formatDisplayDate } from "../lib/format";
@@ -20,14 +20,7 @@ export const BlogListPage: FC<BlogListPageProps> = ({ posts }) => (
       subtitle="Thoughts on distributed systems, Go, Kubernetes, and vector search."
     />
 
-    <div
-      id="post-list"
-      class="space-y-4"
-      hx-get="/blog?page=2"
-      hx-trigger="revealed"
-      hx-swap="afterend"
-      hx-indicator="#loading"
-    >
+    <div id="post-list" class="space-y-4">
       {posts.map((post) => (
         <article key={post.slug} class="group">
           <CardLink href={`/blog/${post.slug}`}>
@@ -61,8 +54,5 @@ export const BlogListPage: FC<BlogListPageProps> = ({ posts }) => (
       ))}
     </div>
 
-    <div id="loading" class="htmx-indicator flex justify-center py-8">
-      <Spinner />
-    </div>
   </PageShell>
 );
