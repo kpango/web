@@ -53,6 +53,5 @@ export const BlogListPage: FC<BlogListPageProps> = ({ posts }) => (
         </article>
       ))}
     </div>
-
   </PageShell>
 );
