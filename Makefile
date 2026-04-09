@@ -75,7 +75,7 @@ docker-test:
 
 # Start a local dev server in Docker on port 8787
 docker-run:
-	docker run --rm --name kpango-web -p 8787:8787 $(DOCKER_IMAGE):$(DOCKER_TAG)
+	docker run --rm --name kpango -p 8787:8787 $(DOCKER_IMAGE):$(DOCKER_TAG)
 
 # Push the Docker image to Docker Hub
 docker-push: docker-build

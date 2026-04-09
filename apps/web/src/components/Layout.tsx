@@ -14,7 +14,6 @@ export const Layout: FC<LayoutProps> = ({
   path = "/",
 }) => {
   const GA_ID = "G-KCPFP9R997";
-
   return (
     <html lang="en" class="dark">
       <head>

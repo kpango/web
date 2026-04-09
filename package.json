@@ -1,5 +1,5 @@
 {
-  "name": "kpango-web",
+  "name": "kpango",
   "private": true,
   "workspaces": [
     "apps/*",
