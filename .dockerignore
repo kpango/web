@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.wrangler/
+.git/
+.github/
+coverage/
+*.log
+*.tsbuildinfo
+.DS_Store
+.turbo/
+.cache/
+.env
+.env.local
+.env.*.local
+bun.lockb

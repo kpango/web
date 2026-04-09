@@ -1,0 +1,347 @@
+{
+  "basics": {
+    "name": "Yusuke Kato",
+    "label": "Distributed Systems / Search / Cloud / Security — Individual Contributor",
+    "nickname": "kpango",
+    "email": "kpango@vdaas.org",
+    "phone": "+818067177951",
+    "url": "https://kpango.com",
+    "summary": "I am a technically specialized software engineer (Individual Contributor) focusing on four main areas: distributed computing, search, cloud, and security, leveraging exceptional technical skills to solve large-scale challenges. At LINE Yahoo! Japan Corporation, I participated in 21 diverse projects, ranging from 50-person teams to 6-person SWAT teams, overcoming technical challenges as a lead developer and architect. I launched the next-generation distributed vector search engine \"Vald\" through personal open-source development and promoted its transition into a company project, establishing a dedicated 6-person OSS development team and a 5-person operations team to deploy Vald as a managed vector database on a private cloud. Furthermore, in building an authentication and authorization platform integrating Athenz and Kubernetes, I almost single-handedly completed planning, implementation, and handover, successfully deploying it to over 450 clusters.",
+    "location": {
+      "address": "",
+      "postalCode": "",
+      "city": "Tokyo",
+      "countryCode": "JP",
+      "region": "Japan"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "kpango",
+        "url": "https://github.com/kpango"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "kpango",
+        "url": "https://linkedin.com/in/kpango"
+      },
+      {
+        "network": "X",
+        "username": "kpang0",
+        "url": "https://x.com/kpang0"
+      },
+      {
+        "network": "Facebook",
+        "username": "kpango0114",
+        "url": "https://www.facebook.com/kpango0114/"
+      }
+    ]
+  },
+  "education": [
+    {
+      "institution": "Tokai University",
+      "area": "Physics",
+      "studyType": "BSc",
+      "startDate": "2012-04",
+      "endDate": "2016-03",
+      "location": "Kanagawa, Japan"
+    },
+    {
+      "institution": "Yokohama High School",
+      "area": "",
+      "studyType": "High School Diploma",
+      "startDate": "2007-04",
+      "endDate": "2010-03",
+      "location": "Yokohama, Japan"
+    }
+  ],
+  "languages": [
+    { "language": "Japanese", "fluency": "Native" },
+    { "language": "English", "fluency": "Conversational" }
+  ],
+  "skills": [
+    "Go",
+    "C/C++",
+    "Rust",
+    "Python",
+    "TypeScript",
+    "Nim",
+    "Swift",
+    "Kotlin",
+    "Java",
+    "Kubernetes",
+    "Docker",
+    "OpenStack",
+    "Proxmox",
+    "TalosLinux",
+    "ArchLinux",
+    "NixOS",
+    "Vector Search",
+    "gRPC",
+    "Distributed Systems",
+    "Cloud Native",
+    "CloudFoundry",
+    "Vue.js",
+    "Nuxt.js"
+  ],
+  "expertise": [
+    {
+      "title": "Distributed Computing (Go, C/C++, Rust)",
+      "description": "Through the development of Vald, NGT, Athenz, Garm, and other systems, expertise in implementing advanced algorithms and building distributed systems. Deeply proficient in Go's lock-free implementation and CGO/LLVM build optimization, enabling high-throughput, low-latency systems from scratch that form the foundation for the AI era."
+    },
+    {
+      "title": "Search Technology (Vector Search)",
+      "description": "Deep understanding of all layers of vector search engines, from NGT's internal implementation to cloud-native scaling techniques. Excels at designing architectures and tuning performance to ensure latency below 50ms at the 99th percentile for datasets ranging from hundreds of millions to billions of units."
+    },
+    {
+      "title": "Cloud-Native Infrastructure (Kubernetes, Docker)",
+      "description": "Strengths in design and implementation capabilities for CRDs and Operators, cultivated through extensive development of Vald, Garm, and Athenz Sidecar. Beyond application containerization, capable of developing code to control infrastructure on a scale of thousands of machines, including sidecar clusters based on the Service Mesh concept and cross-platform solutions utilizing Kubernetes webhooks."
+    },
+    {
+      "title": "Security and Authentication/Authorization (SSoT, Athenz, AuthZ/N)",
+      "description": "Based on experience integrating Athenz and Kubernetes, capable of designing and implementing transparent, secure systems for managing authentication and authorization (AuthN/AuthZ) in complex cloud environments. Provides guidance and implementation to improve Developer Experience (DX), dramatically reducing development costs while maintaining high security requirements."
+    }
+  ],
+  "work": [
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "Search R&D Unit — Search Technology",
+      "position": "Vald / Managed Vald Specialist Developer",
+      "startDate": "2025-04",
+      "endDate": null,
+      "highlights": [
+        "Continuing OSS development of Vald: leading development of Metadata Store for MCP (Metadata Cache Proxy) for RAG use-cases.",
+        "Refactoring components using Rust and C++ to address memory issues caused by FFI (Foreign Function Interface).",
+        "Implementing SIMD instructions and ARM architecture support to diversify Vald's supported architectures.",
+        "Expanding user documentation and providing a default Embedding Model to reduce adoption barriers.",
+        "Active exhibition and speaking at major conferences: KubeCon, CloudNativeDays, Open Source Summit Japan.",
+        "GitHub stars increased by ~500 since project start. Registered for CNCF Landscape and LFAI Landscape. Preparing CNCF Sandbox application with CNCF TOC connections."
+      ]
+    },
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "Technology Incubation",
+      "position": "R&D Technology Product Manager / Tech Lead",
+      "startDate": "2019-08",
+      "endDate": "2025-03",
+      "highlights": [
+        "Founder, Product Owner & Tech Lead of Vald — distributed vector search engine. Developed prototype solo during Golden Week 2019; approved by CTO. Led implementation and early-user support single-handedly for ~3 months before establishing a dedicated 6-person engineering team.",
+        "Created a separate 5-person Managed Vald operations team to accelerate PaaS deployment. Completed \"Managed Vald\" as an in-house PaaS in winter 2020 — a secure, scalable vector database accessible with a single click.",
+        "Managed advanced technology products: FractalDB (8 members), Leo (2 members), Anomaly Detection (3 members) as Product Owner.",
+        "Implemented in 28 critical internal services including similar image search, ad delivery, and recommendations. 99th percentile latency ≤50ms (as fast as 3ms); infrastructure costs reduced to ~1/10 vs. prior similarity search system.",
+        "Invented patented routing algorithm distributing NGT's single-instance in-memory graph to function as a single graph in cluster form.",
+        "Revamped gRPC connection pool from scratch using sync/atomic and singleflight to suppress stampede problems under high load, minimizing lock contention and allocation on hot paths."
+      ]
+    },
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "CTO Office — SWAT",
+      "position": "Senior Lead Developer / Chief Architect",
+      "startDate": "2016-04",
+      "endDate": "2019-08",
+      "highlights": [
+        "Completed 21 high-difficulty projects (crisis/delayed projects) across teams of 6–50 people.",
+        "Chief Architect & Founder of Garm — Kubernetes authorization webhook integrating Athenz (2018/4–2019/7). Reduced per-engineer authentication implementation time from 3 days to 30 minutes. Deployed to 450+ Kubernetes clusters as company-wide SSoT platform.",
+        "Built Athenz OSS ecosystem: Garm, Athenz Authorizer, Authorization Proxy, Client Sidecar — from planning, design, development to delivery, documentation, and handover.",
+        "A/B Testing Platform: ported legacy C++ to Go, increasing throughput by ~30% while maintaining latency. Implemented distributed hashing (Murmur3) and lock-free ConcurrentMap for 80,000+ req/sec.",
+        "Deciphered and modified US Yahoo!'s black-box C++ user ID management library — a crucial breakthrough for the project.",
+        "Yahoo! JAPAN Online EBook Store — Frontend (Vue.js/Nuxt.js). Premium Ad Delivery Platform — low-latency algorithm (Go/CloudFoundry). Yahoo! Auctions — Android redesign (Java→Kotlin). Yahoo! Mail — backend (Java/HBase/ZooKeeper) and Scrum Master."
+      ]
+    },
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "Go Language Technical Support",
+      "position": "Go Language Black Belt / Technical Advisor",
+      "startDate": "2019-01",
+      "endDate": "2021-12",
+      "highlights": [
+        "Official Go language expert certification (Black Belt) at Yahoo! Japan — received activity budget and dedicated working hours.",
+        "Developed internal Go libraries and maintained CI/CD pipelines.",
+        "Held in-house Go tutorial seminars (200–400 participants). Monthly Go LT Organizer.",
+        "Provided Go language consulting, on-site development support, and troubleshooting across teams."
+      ]
+    },
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "OSS Developer Program",
+      "position": "Officially Recognized OSS Developer",
+      "startDate": "2021-01",
+      "endDate": "2023-12",
+      "highlights": [
+        "Received activity budgets and working hours for ongoing open-source contributions under Yahoo! Japan's officially recognized OSS developer program.",
+        "Contributed to Vald, Athenz (Athenz Authorizer, Authorization Proxy, Client Sidecar), Garm, Gimbal, NGTD, Gongt, and more."
+      ]
+    },
+    {
+      "company": "LINE Yahoo! Japan Corporation",
+      "department": "HR Strategy",
+      "position": "Human Resources Strategy Advisor",
+      "startDate": "2017-01",
+      "endDate": "2018-04",
+      "highlights": [
+        "Contributed as an advisor analyzing Yahoo's engineer recruitment needs from both technical and disciplinary standpoints."
+      ]
+    },
+    {
+      "company": "SoftBank Corp.",
+      "department": "Access Node Network",
+      "position": "Network Engineer Intern",
+      "startDate": "2014-09",
+      "endDate": "2014-11",
+      "highlights": [
+        "Deployment design and network construction design for 4G MSANs (Multi-Service Access Nodes) nationwide.",
+        "Developed deployment and placement prediction software using reinforcement learning, optimizing server numbers and equipment adjustments."
+      ]
+    },
+    {
+      "company": "Nojima Corporation",
+      "department": "EC Site",
+      "position": "Backend Engineer Intern",
+      "startDate": "2013-02",
+      "endDate": "2014-10",
+      "highlights": [
+        "Backend development for e-commerce sites, internal Q&A systems, and PoS systems.",
+        "iOS/Android app development including a barcode scanning system using early Google Glass SDK.",
+        "Team management experience as internship team leader."
+      ]
+    }
+  ],
+  "awards": [
+    {
+      "title": "HackDay 2019 Technology Award",
+      "description": "Developed an application for virtual kimono try-on using deep learning-based skeletal detection and image synthesis."
+    },
+    {
+      "title": "IPSJ Industrial Achievement Award 2019",
+      "description": "Development of an open-source nearest neighbour search achieving world-class performance for high-dimensional vectors."
+    },
+    {
+      "title": "PwC Technology Hackathon 2017 Winner",
+      "description": "Developed \"SMILE MILE\" — a social networking service for finding people at events like Tokyo 2020, featuring machine learning-based smile level evaluation."
+    },
+    {
+      "title": "SB Cloud Hackathon 2016 Winner",
+      "description": "Developed \"MediPass\" — an Android app for saving and sharing personal medical history online as a medical passport."
+    },
+    {
+      "title": "AngelHack JP 2016 — 2nd Place",
+      "description": "Developed an app that automatically organizes photos using machine learning with NGT and vector search classification."
+    },
+    {
+      "title": "HackU (Yahoo! Japan) 2014 Technology Award",
+      "description": "Developed \"Ripple\" — a social networking service using bidirectional cross-mesh networking with Android and Bluetooth technology."
+    }
+  ],
+  "publicInfo": {
+    "vald": {
+      "label": "Vald",
+      "links": [
+        { "title": "Official Website", "url": "https://vald.vdaas.org" },
+        { "title": "GitHub", "url": "https://github.com/vdaas/vald" },
+        { "title": "Medium", "url": "https://vdaas-vald.medium.com/" },
+        { "title": "Zenn", "url": "https://zenn.dev/vald" },
+        { "title": "YDN", "url": "https://developer.yahoo.co.jp/oss/vald/" },
+        { "title": "The potential of Kubernetes as more than just an infrastructure to deploy", "url": "https://www.docswell.com/s/ydnjp/ZL8LPK-2022-01-31-153521" },
+        { "title": "Vald: OSS ANN Vector Search Engine — Introduction and Case Studies", "url": "https://speakerdeck.com/techverse_2022/vald-oss-ann-nearest-neighbor-dense-vector-search-engine-introduction-and-case-studies" }
+      ]
+    },
+    "athenz": {
+      "label": "Athenz",
+      "links": [
+        { "title": "Official Website", "url": "https://www.athenz.io/" },
+        { "title": "Athenz (GitHub)", "url": "https://github.com/AthenZ/athenz" },
+        { "title": "Garm (GitHub)", "url": "https://github.com/AthenZ/garm" },
+        { "title": "Athenz Authorizer (GitHub)", "url": "https://github.com/AthenZ/athenz-authorizer" },
+        { "title": "Authorization Proxy (GitHub)", "url": "https://github.com/AthenZ/authorization-proxy" },
+        { "title": "Client Sidecar (GitHub)", "url": "https://github.com/AthenZ/athenz-client-sidecar" },
+        { "title": "Athenz K8s Access Control at JapanContainerDays", "url": "https://speakerdeck.com/kpango/yahoo-japanniokeruathenzwoyong-itak8sakusesuzhi-yu-guan-li-at-japancontainerdays" }
+      ]
+    },
+    "personal": {
+      "label": "Personal OSS",
+      "links": [
+        { "title": "Gache (GitHub)", "url": "https://github.com/kpango/gache" },
+        { "title": "Gache Benchmark", "url": "https://gache.kpango.com/" },
+        { "title": "Glg (GitHub)", "url": "https://github.com/kpango/glg" },
+        { "title": "Fastime (GitHub)", "url": "https://github.com/kpango/fastime" },
+        { "title": "Dotfiles (GitHub)", "url": "https://github.com/kpango/dotfiles" },
+        { "title": "Resume", "url": "https://kpango.com" }
+      ]
+    }
+  },
+  "pr": "\"The overwhelming individual technical skills to create something from nothing, and the driving force to lead and scale the entire organization.\" Through product management experience, I believe an Individual Contributor (IC) is someone who actively contributes to the product by taking initiative and continuously building new experiences and systems. My greatest strength lies in my ability to single-handedly complete everything from problem identification to prototype implementation at lightning speed, and then use those results to drive action across the entire organization. For example, Vald began as a personal Golden Week project, grew into a CTO-approved initiative, and ultimately became a managed PaaS supporting 28 critical company-wide services. In authentication and authorization infrastructure, I almost single-handedly completed everything from planning to deployment across 450+ clusters. From modifying legacy C++ code to designing advanced distributed search engines and building organizations that motivate executives, I continue to deliver direct impact as a technically specialized playing engineer.",
+  "oss": [
+    {
+      "name": "Vald",
+      "slug": "vald",
+      "description": "A highly scalable distributed high-speed approximate nearest neighbor dense vector search engine.",
+      "url": "https://github.com/vdaas/vald",
+      "stars": 1691,
+      "tags": ["Go", "Kubernetes", "Vector Search", "Distributed Systems", "Cloud Native"],
+      "highlight": "Used by LINE Yahoo! Japan for similar image search, ad delivery, and recommendations. 99th percentile latency ≤50ms. Infrastructure costs reduced to ~1/10."
+    },
+    {
+      "name": "Gache",
+      "slug": "gache",
+      "description": "Ultra-fast lock-free in-memory cache library with xxh3 hashing, TTL management, and key hash sharding.",
+      "url": "https://github.com/kpango/gache",
+      "stars": null,
+      "tags": ["Go", "Cache", "Performance", "Lock-free", "Zero-Alloc"],
+      "highlight": "Standard library used across LINE Yahoo! Japan's mission-critical Go services including Vald and Athenz products."
+    },
+    {
+      "name": "Glg",
+      "slug": "glg",
+      "description": "High-speed logging library for Go with leveled logging and colorized output, designed for high-volume log output.",
+      "url": "https://github.com/kpango/glg",
+      "stars": null,
+      "tags": ["Go", "Logging", "Performance"],
+      "highlight": "Standard library within LINE Yahoo! Japan for mission-critical Go applications including Vald and ad delivery infrastructure."
+    },
+    {
+      "name": "Fastime",
+      "slug": "fastime",
+      "description": "Super fast time library for Go with zero memory allocation, returning approximate current time via background goroutine.",
+      "url": "https://github.com/kpango/fastime",
+      "stars": null,
+      "tags": ["Go", "Performance", "Time", "Zero-Alloc"],
+      "highlight": "Widely adopted within LINE Yahoo! Japan's Go ecosystem for low-overhead time retrieval in performance-critical paths."
+    },
+    {
+      "name": "Garm",
+      "slug": "garm",
+      "description": "Kubernetes authorization webhook integrating with Athenz for fine-grained RBAC access control on K8s resources.",
+      "url": "https://github.com/AthenZ/garm",
+      "stars": null,
+      "tags": ["Go", "Kubernetes", "Authorization", "Athenz"],
+      "highlight": "Deployed to 450+ Kubernetes clusters as company-wide SSoT platform. Reduced per-engineer auth implementation from 3 days to 30 minutes."
+    },
+    {
+      "name": "Athenz Authorizer",
+      "slug": "athenz-authorizer",
+      "description": "Go library that caches Athenz policies and certificates for authentication and authorization of service requests.",
+      "url": "https://github.com/AthenZ/athenz-authorizer",
+      "stars": null,
+      "tags": ["Go", "Athenz", "Authorization", "Security"],
+      "highlight": "Core component of the transparent auth proxy that keeps policy cache within the sidecar, dramatically reducing communication overhead."
+    },
+    {
+      "name": "Authorization Proxy",
+      "slug": "authorization-proxy",
+      "description": "Kubernetes sidecar reverse proxy for API endpoint authentication and authorization using Athenz. Supports OAuth2, role tokens, and mTLS.",
+      "url": "https://github.com/AthenZ/authorization-proxy",
+      "stars": null,
+      "tags": ["Go", "Kubernetes", "Athenz", "Sidecar", "Reverse Proxy"],
+      "highlight": "Transparent authentication proxy avoiding inline Athenz queries, part of the Athenz OSS ecosystem built from scratch."
+    },
+    {
+      "name": "Athenz Client Sidecar",
+      "slug": "athenz-client-sidecar",
+      "description": "Kubernetes sidecar container providing a common interface to retrieve authentication and authorization credentials from Athenz server.",
+      "url": "https://github.com/AthenZ/athenz-client-sidecar",
+      "stars": null,
+      "tags": ["Go", "Kubernetes", "Athenz", "Sidecar", "Security"],
+      "highlight": "Handles N-token, access token, and role token retrieval with automatic caching and renewal."
+    }
+  ]
+}

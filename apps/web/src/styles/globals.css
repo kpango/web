@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* ── Design tokens (shadcn/ui-inspired) ─────────────────────── */
+    --background: #f9fafb;
+    --foreground: #111827;
+    --card: #ffffff;
+    --card-foreground: #111827;
+    --primary: #4f46e5;
+    --primary-foreground: #ffffff;
+    --secondary: #f3f4f6;
+    --secondary-foreground: #1f2937;
+    --muted: #f3f4f6;
+    --muted-foreground: #6b7280;
+    --accent: #eef2ff;
+    --accent-foreground: #3730a3;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #e5e7eb;
+    --input: #e5e7eb;
+    --ring: #6366f1;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: #030712;
+    --foreground: #f9fafb;
+    --card: #111827;
+    --card-foreground: #f9fafb;
+    --primary: #818cf8;
+    --primary-foreground: #1e1b4b;
+    --secondary: #1f2937;
+    --secondary-foreground: #f9fafb;
+    --muted: #1f2937;
+    --muted-foreground: #9ca3af;
+    --accent: #1e1b4b;
+    --accent-foreground: #c7d2fe;
+    --destructive: #b91c1c;
+    --destructive-foreground: #fef2f2;
+    --border: #1f2937;
+    --input: #374151;
+    --ring: #818cf8;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+
+  pre {
+    @apply rounded-xl overflow-x-auto;
+  }
+}
+
+@layer components {
+  .prose-content h1 {
+    @apply text-3xl mt-8 mb-4 text-gray-900 dark:text-white;
+  }
+  .prose-content h2 {
+    @apply text-2xl mt-6 mb-3 text-gray-900 dark:text-white;
+  }
+  .prose-content h3 {
+    @apply text-xl mt-4 mb-2 text-gray-800 dark:text-gray-100;
+  }
+  .prose-content p {
+    @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300;
+  }
+  .prose-content ul {
+    @apply list-disc pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300;
+  }
+  .prose-content ol {
+    @apply list-decimal pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300;
+  }
+  .prose-content li {
+    @apply leading-relaxed;
+  }
+  .prose-content a {
+    @apply text-indigo-600 hover:text-indigo-800 underline dark:text-indigo-400;
+  }
+  .prose-content blockquote {
+    @apply border-l-4 border-indigo-400 pl-4 italic text-gray-600 dark:text-gray-400 my-4;
+  }
+  .prose-content code {
+    @apply bg-gray-100 dark:bg-gray-800 rounded px-1.5 py-0.5 text-sm font-mono;
+  }
+  .prose-content pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-xl text-sm mb-4 overflow-x-auto;
+  }
+  .prose-content pre code {
+    @apply bg-transparent p-0 text-inherit;
+  }
+  .prose-content table {
+    @apply w-full border-collapse mb-4 text-sm;
+  }
+  .prose-content th {
+    @apply bg-gray-100 dark:bg-gray-800 font-semibold text-left px-3 py-2 border border-gray-200 dark:border-gray-700;
+  }
+  .prose-content td {
+    @apply px-3 py-2 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300;
+  }
+  .prose-content hr {
+    @apply border-gray-200 dark:border-gray-700 my-8;
+  }
+}
+
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+}
+
+/* HTMX loading indicator */
+.htmx-indicator {
+  opacity: 0;
+  transition: opacity 200ms ease-in;
+}
+.htmx-request .htmx-indicator,
+.htmx-request.htmx-indicator {
+  opacity: 1;
+}
