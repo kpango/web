@@ -13,9 +13,6 @@ export const Layout: FC<LayoutProps> = ({
   description = "Distributed Systems / Search / Cloud / Security — Individual Contributor at LINE Yahoo! Japan. Founder of Vald.",
   path = "/",
 }) => {
-  // GA_ID is hardcoded for analytics
-  // biome-ignore lint/suspicious/noExplicitAny: globalThis.process may not exist in Workers runtimes
-  const proc = (globalThis as any).process;
   const GA_ID = "G-KCPFP9R997";
 
   return (
