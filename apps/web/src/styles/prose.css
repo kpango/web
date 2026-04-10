@@ -1,0 +1,62 @@
+@tailwind components;
+
+@layer components {
+  /* Shiki Dual Theme Support */
+  .shiki {
+    /* We remove transition-colors to prevent background flash on load/navigation */
+    @apply overflow-x-auto;
+  }
+
+  /* Custom overrides for prose to make it look even better */
+  .prose {
+    --tw-prose-pre-bg: transparent;
+  }
+
+  body .prose pre,
+  body .prose pre.shiki {
+    @apply rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm;
+    padding: 1.25rem;
+  }
+
+  body .prose pre code,
+  body .prose pre.shiki code {
+    @apply font-mono text-[0.875em] leading-relaxed;
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+  }
+
+  /* Shiki dark theme override - using simple and high-specificity selectors */
+  html.dark body .shiki,
+  html.dark .prose pre.shiki {
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override Shiki inline styles for dual-theme support */
+    color: var(--shiki-dark) !important;
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override Shiki inline styles for dual-theme support */
+    background-color: var(--shiki-dark-bg) !important;
+  }
+
+  /* Reset spans background to transparent in dark mode if they don't have their own */
+  html.dark body .shiki span,
+  html.dark .prose pre.shiki span {
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override Shiki inline styles for dual-theme support */
+    color: var(--shiki-dark) !important;
+    /* biome-ignore lint/complexity/noImportantStyles: Required to override Shiki inline styles for dual-theme support */
+    background-color: transparent !important;
+    font-style: var(--shiki-dark-font-style);
+    font-weight: var(--shiki-dark-font-weight);
+    text-decoration: var(--shiki-dark-text-decoration);
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"] *)) {
+    @apply bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded-md font-medium text-[0.875em];
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"] *))::before,
+  .prose :where(code):not(:where([class~="not-prose"] *))::after {
+    content: ""; /* Remove backticks from inline code */
+  }
+
+  .prose img {
+    @apply rounded-xl shadow-md border border-border;
+  }
+}
