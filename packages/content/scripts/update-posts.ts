@@ -19,9 +19,9 @@ async function main() {
   await buildBlog(BLOG_DIR, POSTS_TS_PATH);
   await buildOss(OSS_DIR, OSS_TS_PATH);
 
-  const { execSync } = await import("node:child_process");
+  const { execFileSync } = await import("node:child_process");
   try {
-    execSync(`bun x @biomejs/biome format --write ${POSTS_TS_PATH} ${OSS_TS_PATH}`);
+    execFileSync("bun", ["x", "@biomejs/biome", "format", "--write", POSTS_TS_PATH, OSS_TS_PATH]);
   } catch (e) {
     console.error("Failed to format files with Biome:", e);
   }
