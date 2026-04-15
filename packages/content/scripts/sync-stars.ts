@@ -41,7 +41,9 @@ async function fetchGitHubStars(repoUrl: string): Promise<number | null> {
       } else if (response.status === 403) {
         console.warn(`GitHub API rate limit exceeded while fetching ${repo}.`);
       } else {
-        console.error(`Failed to fetch stars for ${repo}: ${response.status} ${response.statusText}`);
+        console.error(
+          `Failed to fetch stars for ${repo}: ${response.status} ${response.statusText}`
+        );
       }
       return null;
     }
