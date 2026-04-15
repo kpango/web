@@ -135,25 +135,25 @@ export async function buildBlog(blogDir: string, postsTsPath: string): Promise<P
 
   return await Promise.all(
     mdFiles.map(async (file) => {
-    const slug = file.replace(".md", "");
-    const filePath = path.join(blogDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data, content: body } = matter(fileContent);
-    const frontmatter = data as Frontmatter;
+      const slug = file.replace(".md", "");
+      const filePath = path.join(blogDir, file);
+      const fileContent = await fs.promises.readFile(filePath, "utf8");
+      const { data, content: body } = matter(fileContent);
+      const frontmatter = data as Frontmatter;
 
-    const html = await marked.parse(body);
-    const existingPost = existingPosts[slug];
+      const html = await marked.parse(body);
+      const existingPost = existingPosts[slug];
 
-    if (checkShouldUpdate(slug, html, frontmatter, existingPost)) {
-      updateFrontmatterIfChanged(filePath, body, frontmatter);
-    }
+      if (checkShouldUpdate(slug, html, frontmatter, existingPost)) {
+        updateFrontmatterIfChanged(filePath, body, frontmatter);
+      }
 
-   　　 return {
-     　　　 slug,
-      　　　frontmatter,
-      　　　body,
-      　　　html: html.trim(),
-    　　};
+      return {
+        slug,
+        frontmatter,
+        body,
+        html: html.trim(),
+      };
     })
   );
 }
