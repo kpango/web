@@ -37,13 +37,19 @@ export async function setupMarkdownHighlighter() {
           text = textOrToken.text || "";
           lang = textOrToken.lang || "";
         }
-        
+
         const mappedLang = (lang || "").toLowerCase();
 
         // Standard Shiki variables for fallback/plaintext consistency
-        const fallbackStyle = "--shiki-light:#4c4f69;--shiki-dark:#a9b1d6;--shiki-light-bg:#eff1f5;--shiki-dark-bg:#1a1b26";
+        const fallbackStyle =
+          "--shiki-light:#4c4f69;--shiki-dark:#a9b1d6;--shiki-light-bg:#eff1f5;--shiki-dark-bg:#1a1b26";
 
-        if (!mappedLang || mappedLang === "text" || mappedLang === "txt" || mappedLang === "plaintext") {
+        if (
+          !mappedLang ||
+          mappedLang === "text" ||
+          mappedLang === "txt" ||
+          mappedLang === "plaintext"
+        ) {
           return `<pre class="shiki not-prose" style="${fallbackStyle}"><code>${text}</code></pre>`;
         }
 
@@ -58,7 +64,7 @@ export async function setupMarkdownHighlighter() {
           });
           // Inject not-prose class
           return html.replace('<pre class="shiki', '<pre class="shiki not-prose');
-        } catch (e) {
+        } catch (_e) {
           console.warn(`Shiki highlighting failed for ${mappedLang}, falling back to plain text.`);
           return `<pre class="shiki not-prose" style="${fallbackStyle}"><code>${text}</code></pre>`;
         }

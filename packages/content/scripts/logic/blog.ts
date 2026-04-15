@@ -21,62 +21,60 @@ export interface Post {
 
 export async function buildBlog(blogDir: string, postsTsPath: string): Promise<Post[]> {
   const mdFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".md"));
-  const posts: Post[] = [];
 
   let currentPostsTs = "";
   if (fs.existsSync(postsTsPath)) {
     currentPostsTs = fs.readFileSync(postsTsPath, "utf8");
   }
 
-  for (const file of mdFiles) {
-    const slug = file.replace(".md", "");
-    const filePath = path.join(blogDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data, content: body } = matter(fileContent);
-    const frontmatter = data as Frontmatter;
+  const posts = await Promise.all(
+    mdFiles.map(async (file) => {
+      const slug = file.replace(".md", "");
+      const filePath = path.join(blogDir, file);
+      const fileContent = await fs.promises.readFile(filePath, "utf8");
+      const { data, content: body } = matter(fileContent);
+      const frontmatter = data as Frontmatter;
 
-    const html = await marked.parse(body);
+      const html = await marked.parse(body);
 
-    const currentMetadata = { ...frontmatter };
-    delete currentMetadata.lastUpdated;
+      const postInTsRegex = new RegExp(`"${slug}":\\s*{[\\s\\S]*?html:\\s*\`(.*)\`\\s*},?`, "m");
+      const match = currentPostsTs.match(postInTsRegex);
+      const existingHtml = match ? match[1] : null;
 
-    const postInTsRegex = new RegExp(`"${slug}":\\s*{[\\s\\S]*?html:\\s*\`(.*)\`\\s*},?`, "m");
-    const match = currentPostsTs.match(postInTsRegex);
-    const existingHtml = match ? match[1] : null;
+      let shouldUpdateLastUpdated = false;
 
-    let shouldUpdateLastUpdated = false;
-
-    if (!existingHtml) {
-      shouldUpdateLastUpdated = true;
-    } else {
-      if (html.trim() !== existingHtml.trim()) {
+      if (!existingHtml) {
         shouldUpdateLastUpdated = true;
+      } else {
+        if (html.trim() !== existingHtml.trim()) {
+          shouldUpdateLastUpdated = true;
+        }
+
+        if (
+          !currentPostsTs.includes(`title: "${frontmatter.title}"`) ||
+          !currentPostsTs.includes(`description: "${frontmatter.description}"`)
+        ) {
+          shouldUpdateLastUpdated = true;
+        }
       }
 
-      if (
-        !currentPostsTs.includes(`title: "${frontmatter.title}"`) ||
-        !currentPostsTs.includes(`description: "${frontmatter.description}"`)
-      ) {
-        shouldUpdateLastUpdated = true;
+      if (shouldUpdateLastUpdated) {
+        const today = getToday();
+        if (frontmatter.lastUpdated !== today) {
+          frontmatter.lastUpdated = today;
+          const updatedContent = matter.stringify(body, frontmatter);
+          writeIfChanged(filePath, updatedContent);
+        }
       }
-    }
 
-    if (shouldUpdateLastUpdated) {
-      const today = getToday();
-      if (frontmatter.lastUpdated !== today) {
-        frontmatter.lastUpdated = today;
-        const updatedContent = matter.stringify(body, frontmatter);
-        writeIfChanged(filePath, updatedContent);
-      }
-    }
-
-    posts.push({
-      slug,
-      frontmatter,
-      body,
-      html: html.trim(),
-    });
-  }
+      return {
+        slug,
+        frontmatter,
+        body,
+        html: html.trim(),
+      };
+    })
+  );
 
   const postsTsContent = `export interface PostEntry {
   slug: string;
@@ -110,7 +108,9 @@ ${posts
       .replace(/"([^"]+)":/g, "$1:")
       .replace(/\n}/g, "\n    }")},
     html: \`${post.html.replace(/`/g, "\\`").replace(/\$/g, "\\$")}\`,
-    search: ${JSON.stringify(search, null, 2).replace(/"([^"]+)":/g, "$1:").replace(/\n}/g, "\n    }")},
+    search: ${JSON.stringify(search, null, 2)
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/\n}/g, "\n    }")},
   },`;
   })
   .join("\n")}
