@@ -2,7 +2,12 @@ import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   test: {
-    include: ["packages/*/src/**/*.test.ts", "apps/*/src/**/*.test.ts", "apps/*/src/**/*.test.tsx"],
+    include: [
+      "packages/*/src/**/*.test.ts",
+      "packages/*/scripts/**/*.test.ts",
+      "apps/*/src/**/*.test.ts",
+      "apps/*/src/**/*.test.tsx",
+    ],
   },
   resolve: {
     alias: {
