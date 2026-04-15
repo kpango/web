@@ -31,7 +31,7 @@ const initGa = () => {
   if (initialized) return;
   initialized = true;
 
-  const GA_ID = "G-KCPFP9997"; // Using the ID from the previous version
+  const GA_ID = "G-KCPFP9R997"; // Using the ID from the previous version
   const win = getWin();
 
   const s = document.createElement("script");

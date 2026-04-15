@@ -25,7 +25,7 @@ export async function setupMarkdownHighlighter() {
 
   marked.use({
     renderer: {
-      code(textOrToken: any, langOrUndefined?: string) {
+      code(textOrToken: string | { text: string; lang?: string }, langOrUndefined?: string) {
         let text = "";
         let lang = "";
 

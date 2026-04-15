@@ -20,28 +20,8 @@ export interface OssProject {
   html: string;
 }
 
-export async function buildOss(ossDir: string, ossTsPath: string): Promise<OssProject[]> {
-  const ossFiles = fs.readdirSync(ossDir).filter((f) => f.endsWith(".md"));
-
-  const ossProjects = await Promise.all(
-    ossFiles.map(async (file) => {
-      const slug = file.replace(".md", "");
-      const filePath = path.join(ossDir, file);
-      const fileContent = await fs.promises.readFile(filePath, "utf8");
-      const { data, content: body } = matter(fileContent);
-      const frontmatter = data as OssFrontmatter;
-      const html = await marked.parse(body);
-
-      return {
-        slug,
-        frontmatter,
-        body,
-        html: html.trim(),
-      };
-    })
-  );
-
-  const ossTsContent = `export interface OssEntry {
+function generateOssTsContent(ossProjects: OssProject[]): string {
+  return `export interface OssEntry {
   slug: string;
   frontmatter: {
     title: string;
@@ -94,7 +74,30 @@ export function getAllOss(): OssEntry[] {
   return cachedOss;
 }
 `;
+}
 
+export async function buildOss(ossDir: string, ossTsPath: string): Promise<OssProject[]> {
+  const ossFiles = fs.readdirSync(ossDir).filter((f) => f.endsWith(".md"));
+  const ossProjects = await Promise.all(
+    ossFiles.map(async (file) => {
+      const slug = file.replace(".md", "");
+      const filePath = path.join(ossDir, file);
+      const fileContent = await fs.promises.readFile(filePath, "utf8");
+      const { data, content: body } = matter(fileContent);
+      const frontmatter = data as OssFrontmatter;
+      const html = await marked.parse(body);
+
+      return {
+        slug,
+        frontmatter,
+        body,
+        html: html.trim(),
+      };
+    })
+  );
+
+  const ossTsContent = generateOssTsContent(ossProjects);
   writeIfChanged(ossTsPath, ossTsContent);
+
   return ossProjects;
 }
