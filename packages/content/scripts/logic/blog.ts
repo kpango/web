@@ -131,11 +131,10 @@ export function getAllPosts(): PostEntry[] {
 
 export async function buildBlog(blogDir: string, postsTsPath: string): Promise<Post[]> {
   const mdFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".md"));
-  const posts: Post[] = [];
-
   const existingPosts = await getExistingPosts(postsTsPath);
 
-  for (const file of mdFiles) {
+  return await Promise.all(
+    mdFiles.map(async (file) => {
     const slug = file.replace(".md", "");
     const filePath = path.join(blogDir, file);
     const fileContent = fs.readFileSync(filePath, "utf8");
@@ -149,16 +148,12 @@ export async function buildBlog(blogDir: string, postsTsPath: string): Promise<P
       updateFrontmatterIfChanged(filePath, body, frontmatter);
     }
 
-    posts.push({
-      slug,
-      frontmatter,
-      body,
-      html: html.trim(),
-    });
-  }
-
-  const postsTsContent = generatePostsTsContent(posts);
-  writeIfChanged(postsTsPath, postsTsContent);
-
-  return posts;
+   　　 return {
+     　　　 slug,
+      　　　frontmatter,
+      　　　body,
+      　　　html: html.trim(),
+    　　};
+    })
+  );
 }

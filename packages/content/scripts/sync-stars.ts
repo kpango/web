@@ -82,9 +82,9 @@ async function syncStars() {
     console.log(`Successfully updated stars for ${updatedCount} projects.`);
 
     // Format with Biome to ensure consistency (since it's JSON, standard biome format works)
-    const { execSync } = await import("node:child_process");
+    const { execFileSync } = await import("node:child_process");
     try {
-      execSync(`bun x @biomejs/biome format --write ${CV_JSON_PATH}`);
+      execFileSync("bun", ["x", "@biomejs/biome", "format", "--write", CV_JSON_PATH]);
       console.log("Formatted cv.json with Biome");
     } catch (e) {
       console.error("Failed to format cv.json with Biome:", e);
