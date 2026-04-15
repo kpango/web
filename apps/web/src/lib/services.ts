@@ -8,9 +8,14 @@ import type { CV } from "../types";
  * transforming content for the Implementation layer (Pages/Components).
  */
 
+const cv = cvData as CV;
+const profileLookup = Object.fromEntries(
+  cv.basics.profiles.map((p) => [p.network, p]),
+);
+
 export const ContentService = {
   getCV(): CV {
-    return cvData as CV;
+    return cv;
   },
 
   getSiteData() {
@@ -18,8 +23,7 @@ export const ContentService = {
   },
 
   getAuthor(): AuthorCardProps {
-    const cv = this.getCV();
-    const githubProfile = cv.basics.profiles.find((p) => p.network === "GitHub");
+    const githubProfile = profileLookup.GitHub;
 
     return {
       name: cv.basics.name,
@@ -34,8 +38,7 @@ export const ContentService = {
   },
 
   getProfileUrl(network: string): string {
-    const cv = this.getCV();
-    return cv.basics.profiles.find((p) => p.network === network)?.url ?? "";
+    return profileLookup[network]?.url ?? "";
   },
 
   getAwardEmoji(title: string): string {
