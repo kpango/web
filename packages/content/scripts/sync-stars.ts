@@ -41,7 +41,9 @@ async function fetchGitHubStars(repoUrl: string): Promise<number | null> {
       } else if (response.status === 403) {
         console.warn(`GitHub API rate limit exceeded while fetching ${repo}.`);
       } else {
-        console.error(`Failed to fetch stars for ${repo}: ${response.status} ${response.statusText}`);
+        console.error(
+          `Failed to fetch stars for ${repo}: ${response.status} ${response.statusText}`
+        );
       }
       return null;
     }
@@ -82,7 +84,7 @@ async function syncStars() {
     // Format with Biome to ensure consistency (since it's JSON, standard biome format works)
     const { execSync } = await import("node:child_process");
     try {
-      execSync(`bunx @biomejs/biome format --write ${CV_JSON_PATH}`);
+      execSync(`bun x @biomejs/biome format --write ${CV_JSON_PATH}`);
       console.log("Formatted cv.json with Biome");
     } catch (e) {
       console.error("Failed to format cv.json with Biome:", e);

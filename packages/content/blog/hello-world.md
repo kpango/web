@@ -10,7 +10,7 @@ tags:
   - HTMX
   - TypeScript
   - Cloudflare
-lastUpdated: '2026-04-13'
+lastUpdated: '2026-04-15'
 ---
 
 # Hello World

@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "wrangler dev",
-    "build": "bunx tsc -b && bunx vite build",
+    "build": "bun x tsc -b && bun x vite build",
     "lint": "biome check .",
-    "typecheck": "bunx tsc --noEmit",
+    "typecheck": "bun x tsc --noEmit",
     "preview": "wrangler dev",
     "deploy": "wrangler deploy"
   },

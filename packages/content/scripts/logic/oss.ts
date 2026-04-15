@@ -20,27 +20,8 @@ export interface OssProject {
   html: string;
 }
 
-export async function buildOss(ossDir: string, ossTsPath: string): Promise<OssProject[]> {
-  const ossFiles = fs.readdirSync(ossDir).filter((f) => f.endsWith(".md"));
-  const ossProjects: OssProject[] = [];
-
-  for (const file of ossFiles) {
-    const slug = file.replace(".md", "");
-    const filePath = path.join(ossDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data, content: body } = matter(fileContent);
-    const frontmatter = data as OssFrontmatter;
-    const html = await marked.parse(body);
-
-    ossProjects.push({
-      slug,
-      frontmatter,
-      body,
-      html: html.trim(),
-    });
-  }
-
-  const ossTsContent = `export interface OssEntry {
+function generateOssTsContent(ossProjects: OssProject[]): string {
+  return `export interface OssEntry {
   slug: string;
   frontmatter: {
     title: string;
@@ -73,7 +54,9 @@ ${ossProjects
       .replace(/"([^"]+)":/g, "$1:")
       .replace(/\n}/g, "\n    }")},
     html: \`${project.html.replace(/`/g, "\\`").replace(/\$/g, "\\$")}\`,
-    search: ${JSON.stringify(search, null, 2).replace(/"([^"]+)":/g, "$1:").replace(/\n}/g, "\n    }")},
+    search: ${JSON.stringify(search, null, 2)
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/\n}/g, "\n    }")},
   },`;
   })
   .join("\n")}
@@ -91,7 +74,31 @@ export function getAllOss(): OssEntry[] {
   return cachedOss;
 }
 `;
+}
 
+export async function buildOss(ossDir: string, ossTsPath: string): Promise<OssProject[]> {
+  const ossFiles = fs.readdirSync(ossDir).filter((f) => f.endsWith(".md"));
+  const ossProjects: OssProject[] = [];
+
+  for (const file of ossFiles) {
+    const slug = file.replace(".md", "");
+    const filePath = path.join(ossDir, file);
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const { data, content: body } = matter(fileContent);
+    const frontmatter = data as OssFrontmatter;
+
+    const html = await marked.parse(body);
+
+    ossProjects.push({
+      slug,
+      frontmatter,
+      body,
+      html: html.trim(),
+    });
+  }
+
+  const ossTsContent = generateOssTsContent(ossProjects);
   writeIfChanged(ossTsPath, ossTsContent);
+
   return ossProjects;
 }

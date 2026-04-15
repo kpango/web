@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
+import type { PostEntry } from "../../src/posts"; // Adjust import path depending on where logic/blog.ts is
 import { getToday, normalize, stripMarkdown, writeIfChanged } from "./utils";
 
 export interface Frontmatter {
@@ -19,66 +20,58 @@ export interface Post {
   html: string;
 }
 
-export async function buildBlog(blogDir: string, postsTsPath: string): Promise<Post[]> {
-  const mdFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".md"));
-  const posts: Post[] = [];
-
-  let currentPostsTs = "";
+async function getExistingPosts(postsTsPath: string): Promise<Record<string, PostEntry>> {
   if (fs.existsSync(postsTsPath)) {
-    currentPostsTs = fs.readFileSync(postsTsPath, "utf8");
-  }
-
-  for (const file of mdFiles) {
-    const slug = file.replace(".md", "");
-    const filePath = path.join(blogDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data, content: body } = matter(fileContent);
-    const frontmatter = data as Frontmatter;
-
-    const html = await marked.parse(body);
-
-    const currentMetadata = { ...frontmatter };
-    delete currentMetadata.lastUpdated;
-
-    const postInTsRegex = new RegExp(`"${slug}":\\s*{[\\s\\S]*?html:\\s*\`(.*)\`\\s*},?`, "m");
-    const match = currentPostsTs.match(postInTsRegex);
-    const existingHtml = match ? match[1] : null;
-
-    let shouldUpdateLastUpdated = false;
-
-    if (!existingHtml) {
-      shouldUpdateLastUpdated = true;
-    } else {
-      if (html.trim() !== existingHtml.trim()) {
-        shouldUpdateLastUpdated = true;
+    try {
+      // Dynamic import requires file URL to bypass cache or just import it.
+      // But since it's a TS file, bun can import it directly!
+      const mod = await import(postsTsPath);
+      // we need to access the unexported `posts` object, BUT `getPost` and `getAllPosts` are exported!
+      const all = mod.getAllPosts() as PostEntry[];
+      const map: Record<string, PostEntry> = {};
+      for (const p of all) {
+        map[p.slug] = p;
       }
-
-      if (
-        !currentPostsTs.includes(`title: "${frontmatter.title}"`) ||
-        !currentPostsTs.includes(`description: "${frontmatter.description}"`)
-      ) {
-        shouldUpdateLastUpdated = true;
-      }
+      return map;
+    } catch (e) {
+      console.warn("Failed to load existing posts.ts, treating as empty.", e);
     }
-
-    if (shouldUpdateLastUpdated) {
-      const today = getToday();
-      if (frontmatter.lastUpdated !== today) {
-        frontmatter.lastUpdated = today;
-        const updatedContent = matter.stringify(body, frontmatter);
-        writeIfChanged(filePath, updatedContent);
-      }
-    }
-
-    posts.push({
-      slug,
-      frontmatter,
-      body,
-      html: html.trim(),
-    });
   }
+  return {};
+}
 
-  const postsTsContent = `export interface PostEntry {
+function checkShouldUpdate(
+  _slug: string,
+  html: string,
+  frontmatter: Frontmatter,
+  existingPost: PostEntry | undefined
+): boolean {
+  if (!existingPost) return true;
+  if (html.trim() !== existingHtml(existingPost)) return true;
+  if (existingPost.frontmatter.title !== frontmatter.title) return true;
+  if (existingPost.frontmatter.description !== frontmatter.description) return true;
+  return false;
+}
+
+function existingHtml(post: PostEntry): string {
+  return post.html.trim();
+}
+
+function updateFrontmatterIfChanged(
+  filePath: string,
+  body: string,
+  frontmatter: Frontmatter
+): void {
+  const today = getToday();
+  if (frontmatter.lastUpdated !== today) {
+    frontmatter.lastUpdated = today;
+    const updatedContent = matter.stringify(body, frontmatter);
+    writeIfChanged(filePath, updatedContent);
+  }
+}
+
+function generatePostsTsContent(posts: Post[]): string {
+  return `export interface PostEntry {
   slug: string;
   frontmatter: {
     title: string;
@@ -110,7 +103,9 @@ ${posts
       .replace(/"([^"]+)":/g, "$1:")
       .replace(/\n}/g, "\n    }")},
     html: \`${post.html.replace(/`/g, "\\`").replace(/\$/g, "\\$")}\`,
-    search: ${JSON.stringify(search, null, 2).replace(/"([^"]+)":/g, "$1:").replace(/\n}/g, "\n    }")},
+    search: ${JSON.stringify(search, null, 2)
+      .replace(/"([^"]+)":/g, "$1:")
+      .replace(/\n}/g, "\n    }")},
   },`;
   })
   .join("\n")}
@@ -132,7 +127,38 @@ export function getAllPosts(): PostEntry[] {
   return cachedPosts;
 }
 `;
+}
 
+export async function buildBlog(blogDir: string, postsTsPath: string): Promise<Post[]> {
+  const mdFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".md"));
+  const posts: Post[] = [];
+
+  const existingPosts = await getExistingPosts(postsTsPath);
+
+  for (const file of mdFiles) {
+    const slug = file.replace(".md", "");
+    const filePath = path.join(blogDir, file);
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    const { data, content: body } = matter(fileContent);
+    const frontmatter = data as Frontmatter;
+
+    const html = await marked.parse(body);
+    const existingPost = existingPosts[slug];
+
+    if (checkShouldUpdate(slug, html, frontmatter, existingPost)) {
+      updateFrontmatterIfChanged(filePath, body, frontmatter);
+    }
+
+    posts.push({
+      slug,
+      frontmatter,
+      body,
+      html: html.trim(),
+    });
+  }
+
+  const postsTsContent = generatePostsTsContent(posts);
   writeIfChanged(postsTsPath, postsTsContent);
+
   return posts;
 }

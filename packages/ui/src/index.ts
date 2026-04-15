@@ -1,9 +1,9 @@
 export { cva, type VariantProps } from "class-variance-authority";
-export { Badge, badgeVariants, type BadgeVariant } from "./components/Badge";
+export { AuthorCard, type AuthorCardProps } from "./components/AuthorCard";
+export { Badge, type BadgeVariant, badgeVariants } from "./components/Badge";
 export { BadgeList } from "./components/BadgeList";
 export { ButtonLink, type ButtonLinkProps, buttonLinkVariants } from "./components/ButtonLink";
 export { CardLink } from "./components/CardLink";
-export { AuthorCard, type AuthorCardProps } from "./components/AuthorCard";
 export {
   BlogCard,
   type BlogCardProps,

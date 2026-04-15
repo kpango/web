@@ -12,8 +12,8 @@
     "build": "bun run update-posts && bun run --cwd apps/web build",
     "lint": "bun run --cwd apps/web lint",
     "typecheck": "bun run --cwd apps/web typecheck",
-    "test": "bunx vitest run",
-    "test:watch": "bunx vitest"
+    "test": "bun x vitest run",
+    "test:watch": "bun x vitest"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.11",
