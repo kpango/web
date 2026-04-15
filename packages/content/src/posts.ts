@@ -24,7 +24,7 @@ const posts: Record<string, PostEntry> = {
         "Introducing the new kpango.com personal portal built with Hono, HTMX, and Tailwind CSS",
       date: "2026-04-08",
       tags: ["Meta", "Hono", "HTMX", "TypeScript", "Cloudflare"],
-      lastUpdated: "2026-04-13",
+      lastUpdated: "2026-04-15",
     },
     html: `<h1>Hello World</h1>
 <p>Welcome to the new <strong>kpango.com</strong> — my personal portal, rebuilt from scratch.</p>
