@@ -1,10 +1,10 @@
 import type { FC } from "hono/jsx";
 import { cn } from "../lib/cn";
-import { textPrimary, textSecondary, dateMonoClass } from "../lib/styles";
+import { dateMonoClass, textPrimary, textSecondary } from "../lib/styles";
 import { Badge } from "./Badge";
 import { BadgeList } from "./BadgeList";
 import { CardLink } from "./CardLink";
-import { GitHubIcon, ChevronRightIcon } from "./Icons";
+import { ChevronRightIcon, GitHubIcon } from "./Icons";
 
 export interface OssCardProps {
   slug: string;
@@ -25,7 +25,9 @@ export const OssCard: FC<OssCardProps> = ({ slug, frontmatter }) => (
         <h2 class={cn("text-xl font-bold group-hover:text-primary transition-colors", textPrimary)}>
           {frontmatter.title.split(" - ")[0]}
         </h2>
-        {frontmatter.stars && <Badge variant="yellow">⭐ {frontmatter.stars.toLocaleString()}</Badge>}
+        {frontmatter.stars && (
+          <Badge variant="yellow">⭐ {frontmatter.stars.toLocaleString()}</Badge>
+        )}
       </div>
       <div class="relative z-40">
         <a
@@ -71,7 +73,12 @@ export const BlogCard: FC<BlogCardProps> = ({ slug, frontmatter, formatDisplayDa
     <CardLink href={`/blog/${slug}`}>
       <div class="flex items-start justify-between gap-4">
         <div class="flex-1 min-w-0">
-          <h2 class={cn("text-lg font-semibold group-hover:text-primary transition-colors mb-1", textPrimary)}>
+          <h2
+            class={cn(
+              "text-lg font-semibold group-hover:text-primary transition-colors mb-1",
+              textPrimary
+            )}
+          >
             {frontmatter.title}
           </h2>
           <p class={cn("text-sm leading-relaxed mb-3", textSecondary)}>{frontmatter.description}</p>

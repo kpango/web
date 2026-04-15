@@ -2,11 +2,11 @@ import siteData from "../site.json";
 import { getAllOss } from "./oss";
 import { getAllPosts } from "./posts";
 
+export { default as siteData } from "../site.json";
 export type { OssEntry } from "./oss";
 export { getAllOss, getOss } from "./oss";
 export type { PostEntry } from "./posts";
 export { getAllPosts, getPost } from "./posts";
-export { default as siteData } from "../site.json";
 
 export const searchIndex = [
   ...(siteData.searchIndex || []).map((entry) => ({

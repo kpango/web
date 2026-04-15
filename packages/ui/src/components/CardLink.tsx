@@ -54,4 +54,3 @@ export const CardLink: FC<CardLinkProps> = ({
     </a>
   );
 };
-
