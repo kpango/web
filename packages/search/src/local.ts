@@ -11,6 +11,20 @@ export interface SearchIndexEntry {
   keywordsLow: string;
 }
 
+export function calculateScore(item: SearchIndexEntry, query: string): number {
+  let score = 0;
+  if (item.titleLow.includes(query)) {
+    score += 3;
+  }
+  if (item.excerptLow.includes(query)) {
+    score += 2;
+  }
+  if (item.keywordsLow.includes(query)) {
+    score += 1;
+  }
+  return score;
+}
+
 export function performLocalSearch(query: string, index: SearchIndexEntry[]): SearchResult[] {
   const q = query.toLowerCase().trim();
   if (!q) return [];
@@ -19,17 +33,7 @@ export function performLocalSearch(query: string, index: SearchIndexEntry[]): Se
 
   for (let i = 0; i < index.length; i++) {
     const item = index[i];
-    let score = 0;
-
-    if (item.titleLow.includes(q)) {
-      score += 3;
-    }
-    if (item.excerptLow.includes(q)) {
-      score += 2;
-    }
-    if (item.keywordsLow.includes(q)) {
-      score += 1;
-    }
+    const score = calculateScore(item, q);
 
     if (score > 0) {
       results.push({

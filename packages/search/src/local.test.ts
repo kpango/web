@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { SearchIndexEntry } from "./local";
-import { performLocalSearch } from "./local";
+import { calculateScore, performLocalSearch } from "./local";
 
 const testIndex: SearchIndexEntry[] = [
   {
@@ -34,6 +34,27 @@ const testIndex: SearchIndexEntry[] = [
     keywordsLow: "gache cache lock-free performance go",
   },
 ];
+
+describe("calculateScore", () => {
+  it("returns 0 when there are no matches", () => {
+    expect(calculateScore(testIndex[0], "nonexistent")).toBe(0);
+  });
+
+  it("adds 3 for title matches", () => {
+    const item = { ...testIndex[0], keywordsLow: "", excerptLow: "" };
+    expect(calculateScore(item, "cv")).toBe(3);
+  });
+
+  it("adds 2 for excerpt matches", () => {
+    const item = { ...testIndex[0], titleLow: "", keywordsLow: "" };
+    expect(calculateScore(item, "researcher")).toBe(2);
+  });
+
+  it("adds 1 for keyword matches", () => {
+    const item = { ...testIndex[0], titleLow: "", excerptLow: "" };
+    expect(calculateScore(item, "go")).toBe(1);
+  });
+});
 
 describe("performLocalSearch", () => {
   it("returns empty array for empty query", () => {
