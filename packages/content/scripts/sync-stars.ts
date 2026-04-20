@@ -26,7 +26,6 @@ async function fetchGitHubStars(repoUrl: string): Promise<number | null> {
     if (!match) return null;
 
     const repo = match[1];
-    console.log(`Fetching stars for ${repo}...`);
 
     const response = await fetch(`https://api.github.com/repos/${repo}`, {
       headers: {
