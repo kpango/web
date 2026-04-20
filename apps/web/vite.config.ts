@@ -30,7 +30,6 @@ function inlineCssPlugin() {
       content += `export const proseStyles = \`${escapeCss(proseCss)}\`;\n`;
 
       fs.writeFileSync(outPath, content);
-      console.log("Inlined CSS successfully via Vite plugin");
     },
   };
 }
