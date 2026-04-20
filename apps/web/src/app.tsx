@@ -16,7 +16,7 @@ const app = new Hono();
 app.use(etag());
 app.use(secureHeaders(securityHeaders));
 
-// Centralized HTML middleware (Early Hints & HTML Caching)
+// Centralized HTML middleware (Early Hints)
 app.use("*", htmlMiddleware());
 
 // Optimized Assets middleware (Long-term caching)

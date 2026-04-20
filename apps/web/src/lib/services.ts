@@ -9,9 +9,7 @@ import type { CV } from "../types";
  */
 
 const cv = cvData as CV;
-const profileLookup = Object.fromEntries(
-  cv.basics.profiles.map((p) => [p.network, p]),
-);
+const profileLookup = Object.fromEntries(cv.basics.profiles.map((p) => [p.network, p]));
 
 export const ContentService = {
   getCV(): CV {
