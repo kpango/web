@@ -1,0 +1,107 @@
+{
+  "siteName": "kpango.com",
+  "meta": {
+    "defaultTitle": "kpango — Yusuke Kato",
+    "defaultDescription": "Distributed Systems / Search / Cloud / Security — Individual Contributor at LY Corporation. Founder of Vald.",
+    "twitterHandle": "@kpang0",
+    "siteUrl": "https://kpango.com"
+  },
+  "nav": [
+    { "href": "/", "label": "Home" },
+    { "href": "/cv", "label": "CV" },
+    { "href": "/oss", "label": "OSS" },
+    { "href": "/blog", "label": "Blog" }
+  ],
+  "socialLinks": [
+    { "href": "https://github.com/kpango", "label": "GitHub", "icon": "GitHubIcon" },
+    { "href": "https://x.com/kpang0", "label": "X", "icon": "TwitterIcon" },
+    { "href": "https://linkedin.com/in/kpango", "label": "LinkedIn", "icon": "LinkedInIcon" },
+    { "href": "https://www.facebook.com/kpango0114/", "label": "Facebook", "icon": "FacebookIcon" }
+  ],
+  "home": {
+    "hero": {
+      "specialist": "Distributed Systems / Search / Cloud / Security specialist at",
+      "company": "LY Corporation",
+      "founder": "Founder & lead developer of",
+      "valdDescription": ", a cloud-native distributed vector search engine.",
+      "expertiseSummary": "Expert in Go, C/C++, Rust, Kubernetes, and distributed systems. 21 high-difficulty projects completed. 1300+ K8s clusters deployed with Athenz auth platform."
+    },
+    "sections": {
+      "expertise": "Core Expertise",
+      "oss": "Featured OSS",
+      "awards": "Awards",
+      "contact": "Get in Touch"
+    },
+    "contact": {
+      "description": "Open to collaboration on distributed systems, vector search, and cloud-native Go projects."
+    }
+  },
+  "oss": {
+    "title": "Open Source Projects",
+    "subtitle": "Projects I've founded, maintain, and contribute to. Production-grade libraries and platforms used at LY Corporation scale.",
+    "backLabel": "Back to OSS",
+    "viewOnGitHub": "View on GitHub"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Thoughts on distributed systems, Go, Kubernetes, and vector search.",
+    "backLabel": "Back to Blog",
+    "lastUpdated": "Last updated"
+  },
+  "search": {
+    "placeholder": "Search…",
+    "viewAll": "View all →"
+  },
+  "common": {
+    "back": "Back"
+  },
+  "cv": {
+    "title": "CV — Yusuke Kato (kpango)",
+    "description": "Full CV and work history of Yusuke Kato — Distributed Systems, Search, Cloud, and Security specialist at LY Corporation.",
+    "printButton": "Print / Save PDF",
+    "sections": {
+      "summary": "Summary",
+      "aboutMe": "About Me",
+      "skills": "Skills",
+      "expertise": "Areas of Expertise",
+      "languages": "Languages",
+      "work": "Work Experience",
+      "education": "Education",
+      "awards": "Awards",
+      "public": "Public Information & Links"
+    }
+  },
+  "awards": {
+    "HackDay 2019 Technology Award": "🏆",
+    "IPSJ Industrial Achievement Award 2019": "🎖️",
+    "PwC Technology Hackathon 2017 Winner": "🏆",
+    "SB Cloud Hackathon 2016 Winner": "🏆",
+    "AngelHack JP 2016 — 2nd Place": "🥈",
+    "HackU (Yahoo! Japan) 2014 Technology Award": "🏆",
+    "default": "🏆"
+  },
+  "footer": {
+    "copyright": "© {year} Yusuke Kato (kpango). Built with Hono + HTMX."
+  },
+  "error": {
+    "404": {
+      "title": "Not Found — kpango",
+      "heading": "404 — Not Found",
+      "back": "Back to Home"
+    },
+    "500": {
+      "title": "Error — kpango",
+      "heading": "500 — Server Error",
+      "back": "Back to Home"
+    }
+  },
+  "searchIndex": [
+    {
+      "id": "cv",
+      "title": "CV — Yusuke Kato",
+      "url": "/cv",
+      "excerpt": "Distributed Systems, Search, Cloud, and Security specialist at LY Corporation. Expert in Go, Kubernetes, and distributed systems.",
+      "keywords": "cv resume work experience education yusuke kato kpango line yahoo japan vector search kubernetes go distributed systems security athenz awards"
+    }
+  ]
+}

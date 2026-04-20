@@ -1,0 +1,29 @@
+name = "kpango"
+main = "apps/web/api/index.ts"
+compatibility_date = "2026-04-09"
+
+# Serve prebuilt CSS from the dist/ directory as static assets.
+# Cloudflare serves these from its edge cache automatically.
+[assets]
+directory = "./apps/web/dist"
+binding = "ASSETS"
+
+[build]
+command = "bun run build"
+
+[dev]
+port = 8787
+ip = "0.0.0.0"
+local_protocol = "http"
+
+[[routes]]
+pattern = "kpango.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.kpango.com"
+custom_domain = true
+
+[vars]
+# Set GA_ID via `wrangler secret put GA_ID` or in the Cloudflare dashboard —
+# never commit analytics IDs to source control.

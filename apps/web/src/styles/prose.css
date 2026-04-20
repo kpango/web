@@ -1,0 +1,64 @@
+@tailwind components;
+
+@layer components {
+  /* Shiki Dual Theme Support */
+
+  /* ── Light Mode (Default) ────────────────────────────────── */
+  pre.shiki {
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    border-width: 1px;
+    border-color: #e5e7eb; /* gray-200 */
+    padding: 1.25rem;
+    background-color: var(--shiki-light-bg);
+    color: var(--shiki-light);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  pre.shiki code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    line-height: 1.625;
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+  }
+
+  pre.shiki span {
+    color: var(--shiki-light);
+    background-color: transparent;
+    font-style: var(--shiki-light-font-style, inherit);
+    font-weight: var(--shiki-light-font-weight, inherit);
+    text-decoration: var(--shiki-light-text-decoration, inherit);
+  }
+
+  /* ── Dark Mode ───────────────────────────────────────────── */
+  .dark pre.shiki {
+    border-color: #1f2937; /* gray-800 */
+    background-color: var(--shiki-dark-bg);
+    color: var(--shiki-dark);
+  }
+
+  .dark pre.shiki span {
+    color: var(--shiki-dark);
+    background-color: transparent;
+    font-style: var(--shiki-dark-font-style, inherit);
+    font-weight: var(--shiki-dark-font-weight, inherit);
+    text-decoration: var(--shiki-dark-text-decoration, inherit);
+  }
+
+  /* Inline code (not in pre) */
+  .prose :where(code):not(:where([class~="not-prose"] *)):not(pre code) {
+    @apply bg-gray-100 dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 px-1.5 py-0.5 rounded-md font-medium text-[0.875em];
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"] *))::before,
+  .prose :where(code):not(:where([class~="not-prose"] *))::after {
+    content: ""; /* Remove backticks from inline code */
+  }
+
+  .prose img {
+    @apply rounded-xl shadow-md border border-border;
+  }
+}

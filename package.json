@@ -1,0 +1,25 @@
+{
+  "name": "kpango",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "update-posts": "bun run --cwd packages/content update-posts && bun run --cwd packages/content sync-stars",
+    "sync-stars": "bun run --cwd packages/content sync-stars",
+    "dev": "bun run update-posts && bun run --cwd apps/web dev",
+    "build": "bun run update-posts && bun run --cwd apps/web build",
+    "lint": "bun run --cwd apps/web lint",
+    "typecheck": "bun run --cwd apps/web typecheck",
+    "test": "bun x vitest run",
+    "test:watch": "bun x vitest"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
+    "@tailwindcss/typography": "^0.5.19",
+    "cssnano": "^7.1.5",
+    "postcss-cli": "^11.0.1",
+    "vitest": "^4.1.4"
+  }
+}
