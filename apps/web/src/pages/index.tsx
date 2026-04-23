@@ -21,6 +21,7 @@ import type { CV } from "../types/index";
 const Hero: FC<{ cv: CV }> = ({ cv }) => {
   const siteData = ContentService.getSiteData();
   const githubUrl = ContentService.getProfileUrl("GitHub");
+  const valdUrl = cv.oss.find((o) => o.slug === "vald")?.url ?? "https://github.com/vdaas/vald";
 
   return (
     <Section
@@ -47,7 +48,7 @@ const Hero: FC<{ cv: CV }> = ({ cv }) => {
           <div>
             <h1 class="text-4xl sm:text-5xl font-bold text-white">{cv.basics.name}</h1>
             <p class="text-indigo-300 font-mono text-lg mt-1">
-              <a href="https://github.com/kpango" target="_blank" rel="noopener noreferrer">
+              <a href={githubUrl} target="_blank" rel="noopener noreferrer">
                 @{cv.basics.nickname}
               </a>
             </p>
@@ -59,7 +60,7 @@ const Hero: FC<{ cv: CV }> = ({ cv }) => {
           <span class="text-white font-semibold">{siteData.home.hero.company}</span>.{" "}
           {siteData.home.hero.founder}{" "}
           <a
-            href="https://github.com/vdaas/vald"
+            href={valdUrl}
             target="_blank"
             rel="noopener noreferrer"
             class="text-indigo-300 hover:text-indigo-100 underline"
@@ -86,7 +87,7 @@ const Hero: FC<{ cv: CV }> = ({ cv }) => {
             Blog
           </ButtonLink>
           <ButtonLink
-            href={githubUrl || "https://github.com/kpango"}
+            href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             variant="outline"
