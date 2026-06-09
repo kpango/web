@@ -20,6 +20,9 @@ interface CV {
   oss: OSSProject[];
 }
 
+const HTTP_STATUS_FORBIDDEN = 403;
+const HTTP_STATUS_NOT_FOUND = 404;
+
 async function fetchGitHubStars(repoUrl: string): Promise<number | null> {
   try {
     const match = repoUrl.match(/github\.com\/([^/]+\/[^/]+)/);
@@ -35,9 +38,9 @@ async function fetchGitHubStars(repoUrl: string): Promise<number | null> {
     });
 
     if (!response.ok) {
-      if (response.status === 404) {
+      if (response.status === HTTP_STATUS_NOT_FOUND) {
         console.error(`Repository not found: ${repo}. Keeping existing stars.`);
-      } else if (response.status === 403) {
+      } else if (response.status === HTTP_STATUS_FORBIDDEN) {
         console.warn(`GitHub API rate limit exceeded while fetching ${repo}.`);
       } else {
         console.error(
