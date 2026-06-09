@@ -1,15 +1,15 @@
-interface MyWindow extends Window {
-  dataLayer: unknown[][];
-  gtag: (...args: unknown[]) => void;
+declare global {
+  interface Window {
+    dataLayer: unknown[][];
+    gtag: (...args: unknown[]) => void;
+  }
 }
-
-const getWin = () => globalThis as unknown as MyWindow;
 
 let lastPath = "";
 let lastTitle = "";
 let initialized = false;
 
-const sendPageView = (win: MyWindow) => {
+const sendPageView = () => {
   const currentPath = window.location.pathname;
   const currentTitle = document.title;
 
@@ -18,8 +18,8 @@ const sendPageView = (win: MyWindow) => {
   lastPath = currentPath;
   lastTitle = currentTitle;
 
-  if (typeof win.gtag === "function") {
-    win.gtag("event", "page_view", {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "page_view", {
       page_title: currentTitle,
       page_location: window.location.href,
       page_path: currentPath,
@@ -32,20 +32,19 @@ const initGa = () => {
   initialized = true;
 
   const GA_ID = "G-KCPFP9R997";
-  const win = getWin();
 
   const s = document.createElement("script");
   s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
   s.async = true;
   document.head.appendChild(s);
-  win.dataLayer = win.dataLayer || [];
+  window.dataLayer = window.dataLayer || [];
   function gtag(...args: unknown[]) {
-    getWin().dataLayer.push(args);
+    window.dataLayer.push(args);
   }
-  win.gtag = gtag;
-  win.gtag("js", new Date());
-  win.gtag("config", GA_ID);
-  sendPageView(win);
+  window.gtag = gtag;
+  window.gtag("js", new Date());
+  window.gtag("config", GA_ID);
+  sendPageView();
 
   // Remove listeners after initialization
   interactionEvents.forEach((e) => window.removeEventListener(e, initGa));
@@ -60,6 +59,6 @@ interactionEvents.forEach((e) =>
 
 document.addEventListener("htmx:afterSettle", () => {
   if (initialized) {
-    sendPageView(getWin());
+    sendPageView();
   }
 });
