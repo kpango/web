@@ -32,7 +32,7 @@ export function formatDisplayDate(iso: string): string {
       return iso;
     }
     return DISPLAY_DATE_FORMATTER.format(date);
-  } catch (error) {
+  } catch {
     return iso;
   }
 }
