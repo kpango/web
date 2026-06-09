@@ -29,6 +29,8 @@ export const stripMarkdown = (md: string) =>
     .replace(/\n+/g, " ") // Newlines
     .trim();
 
+export * from "./sanitize";
+
 export const normalize = (text: string) =>
   text
     .toLowerCase()

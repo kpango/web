@@ -24,7 +24,7 @@ const posts: Record<string, PostEntry> = {
         "Introducing the new kpango.com personal portal built with Hono, HTMX, and Tailwind CSS",
       date: "2026-04-08",
       tags: ["Meta", "Hono", "HTMX", "TypeScript", "Cloudflare"],
-      lastUpdated: "2026-04-15",
+      lastUpdated: "2026-06-09",
     },
     html: `<h1>Hello World</h1>
 <p>Welcome to the new <strong>kpango.com</strong> — my personal portal, rebuilt from scratch.</p>
@@ -39,13 +39,13 @@ const posts: Record<string, PostEntry> = {
 <li><strong><a href="https://www.typescriptlang.org">TypeScript</a></strong> — strict mode throughout; no <code>any</code></li>
 </ul>
 <p>The entire UI is rendered server-side with <code>hono/jsx</code>. HTMX handles partial page updates and <code>hx-boost</code> gives SPA-like navigation without a client-side router.</p>
-<h2>What&#39;s here</h2>
+<h2>What's here</h2>
 <ul>
 <li><strong>/cv</strong> — my full résumé with work history, education, and skills</li>
 <li><strong>/oss</strong> — deep dives into the open-source projects I maintain (Vald, Gache, Glg, Garm…)</li>
-<li><strong>/blog</strong> — occasional posts on distributed systems, Go, and whatever I&#39;m hacking on</li>
+<li><strong>/blog</strong> — occasional posts on distributed systems, Go, and whatever I'm hacking on</li>
 </ul>
-<h2>What&#39;s next</h2>
+<h2>What's next</h2>
 <p>I plan to add vector search powered by Cloudflare Vectorize so you can semantically search across all content on the site. Stay tuned.</p>
 <hr>
 <p><em>kpango — Tokyo, 2026</em></p>`,

@@ -3,7 +3,7 @@ import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
 import type { PostEntry } from "../../src/posts"; // Adjust import path depending on where logic/blog.ts is
-import { getToday, normalize, stripMarkdown, writeIfChanged } from "./utils";
+import { getToday, normalize, sanitizeHtml, stripMarkdown, writeIfChanged } from "./utils";
 
 export interface Frontmatter {
   title: string;
@@ -133,27 +133,32 @@ export async function buildBlog(blogDir: string, postsTsPath: string): Promise<P
   const mdFiles = fs.readdirSync(blogDir).filter((f) => f.endsWith(".md"));
   const existingPosts = await getExistingPosts(postsTsPath);
 
-  return await Promise.all(
+  const newPosts = await Promise.all(
     mdFiles.map(async (file) => {
-    const slug = file.replace(".md", "");
-    const filePath = path.join(blogDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data, content: body } = matter(fileContent);
-    const frontmatter = data as Frontmatter;
+      const slug = file.replace(".md", "");
+      const filePath = path.join(blogDir, file);
+      const fileContent = fs.readFileSync(filePath, "utf8");
+      const { data, content: body } = matter(fileContent);
+      const frontmatter = data as Frontmatter;
 
-    const html = await marked.parse(body);
-    const existingPost = existingPosts[slug];
+      const html = await marked.parse(body);
+      const existingPost = existingPosts[slug];
 
-    if (checkShouldUpdate(slug, html, frontmatter, existingPost)) {
-      updateFrontmatterIfChanged(filePath, body, frontmatter);
-    }
+      if (checkShouldUpdate(slug, html, frontmatter, existingPost)) {
+        updateFrontmatterIfChanged(filePath, body, frontmatter);
+      }
 
-   　　 return {
-     　　　 slug,
-      　　　frontmatter,
-      　　　body,
-      　　　html: html.trim(),
-    　　};
+      return {
+        slug,
+        frontmatter,
+        body,
+        html: sanitizeHtml(html.trim()),
+      };
     })
   );
+
+  const postsTsContent = generatePostsTsContent(newPosts);
+  writeIfChanged(postsTsPath, postsTsContent);
+
+  return newPosts;
 }
