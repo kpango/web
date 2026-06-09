@@ -64,8 +64,8 @@ export async function setupMarkdownHighlighter() {
           });
           // Inject not-prose class
           return html.replace('<pre class="shiki', '<pre class="shiki not-prose');
-        } catch (_e) {
-          console.warn(`Shiki highlighting failed for ${mappedLang}, falling back to plain text.`);
+        } catch (e) {
+          console.warn(`Shiki highlighting failed for ${mappedLang}, falling back to plain text.`, e);
           return `<pre class="shiki not-prose" style="${fallbackStyle}"><code>${text}</code></pre>`;
         }
       },
