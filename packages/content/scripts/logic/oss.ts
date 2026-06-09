@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { marked } from "marked";
-import { normalize, stripMarkdown, writeIfChanged } from "./utils";
+import { normalize, sanitizeHtml, stripMarkdown, writeIfChanged } from "./utils";
 
 export interface OssFrontmatter {
   title: string;
@@ -91,7 +91,7 @@ export async function buildOss(ossDir: string, ossTsPath: string): Promise<OssPr
         slug,
         frontmatter,
         body,
-        html: html.trim(),
+        html: sanitizeHtml(html.trim()),
       };
     })
   );
