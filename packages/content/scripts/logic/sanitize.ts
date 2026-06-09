@@ -6,6 +6,6 @@ const DOMPurify = createDOMPurify(window as unknown as Window);
 
 export function sanitizeHtml(html: string): string {
   return DOMPurify.sanitize(html, {
-    ADD_ATTR: ["target"], // Common for links
+    USE_PROFILES: { html: true },
   });
 }
