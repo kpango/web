@@ -21,4 +21,13 @@ describe("formatDisplayDate", () => {
     expect(result).toContain("March");
     expect(result).toContain("30");
   });
+
+  it("returns original string for invalid date inputs", () => {
+    expect(formatDisplayDate("invalid-date")).toBe("invalid-date");
+    expect(formatDisplayDate("not a date")).toBe("not a date");
+  });
+
+  it("returns original string for empty input", () => {
+    expect(formatDisplayDate("")).toBe("");
+  });
 });
