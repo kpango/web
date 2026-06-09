@@ -47,15 +47,17 @@ const initGa = () => {
   sendPageView();
 
   // Remove listeners after initialization
-  interactionEvents.forEach((e) => window.removeEventListener(e, initGa));
+  interactionEvents.forEach((e) => {
+    window.removeEventListener(e, initGa);
+  });
 };
 
 const interactionEvents = ["mouseover", "keydown", "touchmove", "touchstart", "scroll"];
 
 // Initialize only on interaction to save main thread during load
-interactionEvents.forEach((e) =>
-  window.addEventListener(e, initGa, { once: true, passive: true })
-);
+interactionEvents.forEach((e) => {
+  window.addEventListener(e, initGa, { once: true, passive: true });
+});
 
 document.addEventListener("htmx:afterSettle", () => {
   if (initialized) {
