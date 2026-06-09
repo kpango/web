@@ -41,13 +41,12 @@ const initGa = () => {
   win.dataLayer = win.dataLayer || [];
 
   // Need a regular function (not arrow) to access arguments
-  // biome-ignore lint/suspicious/noExplicitAny: arguments cannot be properly typed here
-  function gtag(this: any, ..._args: unknown[]) {
+  function gtag() {
     // biome-ignore lint/complexity/noArguments: gtag requires the arguments object
-    getWin().dataLayer.push(arguments as unknown as IArguments);
+    getWin().dataLayer.push(arguments);
   }
 
-  win.gtag = gtag as (...args: unknown[]) => void;
+  win.gtag = gtag;
   win.gtag("js", new Date());
   win.gtag("config", GA_ID);
   sendPageView(win);
