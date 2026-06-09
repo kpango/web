@@ -1,8 +1,6 @@
-declare global {
-  interface Window {
-    dataLayer: unknown[][];
-    gtag: (...args: unknown[]) => void;
-  }
+interface Window {
+  dataLayer?: unknown[][];
+  gtag?: (...args: unknown[]) => void;
 }
 
 let lastPath = "";
