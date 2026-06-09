@@ -1,5 +1,5 @@
 interface MyWindow extends Window {
-  dataLayer: unknown[][];
+  dataLayer: IArguments[];
   gtag: (...args: unknown[]) => void;
 }
 
@@ -39,24 +39,31 @@ const initGa = () => {
   s.async = true;
   document.head.appendChild(s);
   win.dataLayer = win.dataLayer || [];
-  function gtag(...args: unknown[]) {
-    getWin().dataLayer.push(args);
+
+  // Need a regular function (not arrow) to access arguments
+  // biome-ignore lint/suspicious/noExplicitAny: arguments cannot be properly typed here
+  function gtag(this: any, ..._args: unknown[]) {
+    // biome-ignore lint/complexity/noArguments: gtag requires the arguments object
+    getWin().dataLayer.push(arguments as unknown as IArguments);
   }
-  win.gtag = gtag;
+
+  win.gtag = gtag as (...args: unknown[]) => void;
   win.gtag("js", new Date());
   win.gtag("config", GA_ID);
   sendPageView(win);
 
   // Remove listeners after initialization
-  interactionEvents.forEach((e) => window.removeEventListener(e, initGa));
+  interactionEvents.forEach((e) => {
+    window.removeEventListener(e, initGa);
+  });
 };
 
 const interactionEvents = ["mouseover", "keydown", "touchmove", "touchstart", "scroll"];
 
 // Initialize only on interaction to save main thread during load
-interactionEvents.forEach((e) =>
-  window.addEventListener(e, initGa, { once: true, passive: true })
-);
+interactionEvents.forEach((e) => {
+  window.addEventListener(e, initGa, { once: true, passive: true });
+});
 
 document.addEventListener("htmx:afterSettle", () => {
   if (initialized) {
