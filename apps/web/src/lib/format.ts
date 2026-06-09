@@ -26,5 +26,13 @@ const DISPLAY_DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
 });
 
 export function formatDisplayDate(iso: string): string {
-  return DISPLAY_DATE_FORMATTER.format(new Date(iso));
+  try {
+    const date = new Date(iso);
+    if (Number.isNaN(date.getTime())) {
+      return iso;
+    }
+    return DISPLAY_DATE_FORMATTER.format(date);
+  } catch {
+    return iso;
+  }
 }
