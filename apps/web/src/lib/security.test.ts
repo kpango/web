@@ -15,29 +15,31 @@ describe("securityHeaders", () => {
   });
 
   describe("Content Security Policy", () => {
-    const csp = securityHeaders.contentSecurityPolicy as any;
+    const csp = securityHeaders.contentSecurityPolicy;
 
     it("should have defaultSrc set to 'self'", () => {
-      expect(csp.defaultSrc).toContain("'self'");
+      expect(csp.defaultSrc).toEqual(["'self'"]);
     });
 
-    it("should allow scripts from trusted domains and required inline hashes", () => {
-      expect(csp.scriptSrc).toContain("'self'");
-      expect(csp.scriptSrc).toContain("https://www.googletagmanager.com");
-      expect(csp.scriptSrc).toContain("https://www.google-analytics.com");
-      // Check for at least one hash
-      expect(
-        csp.scriptSrc.some((src: string) => src.startsWith("'sha256-"))
-      ).toBe(true);
+    it("should allow only the intended script sources (including required hashes)", () => {
+      expect(csp.scriptSrc).toEqual([
+        "'self'",
+        "'sha256-fAUNvp3YmWmftxjxXhCz+FxWUBEnCiuh/GrjmrRnmgg='",
+        "'sha256-DP8jHTFztqRxLUYoOqVfqS8sblBs3KbnMm2IjpDKA78='",
+        "'sha256-9om4xYgxKuzZDjIJ0NbankrFKmkNfnY6Ul0rurB+Clw='",
+        "'sha256-pnRMKIKHyAcrxNdopR7JroLsskecQenxrbkLyzcQwQQ='",
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com",
+      ]);
     });
 
     it("should prevent framing", () => {
-      expect(csp.frameAncestors).toContain("'none'");
+      expect(csp.frameAncestors).toEqual(["'none'"]);
     });
 
     it("should enforce Trusted Types", () => {
-      expect(csp.requireTrustedTypesFor).toContain("'script'");
-      expect(csp.trustedTypes).toContain("default");
+      expect(csp.requireTrustedTypesFor).toEqual(["'script'"]);
+      expect(csp.trustedTypes).toEqual(["default", "goog#html"]);
     });
   });
 
