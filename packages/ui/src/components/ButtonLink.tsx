@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { FC, PropsWithChildren } from "hono/jsx";
+import type { FC, JSX, PropsWithChildren } from "hono/jsx";
 
 export const buttonLinkVariants = cva(
   "inline-flex items-center gap-2 font-medium rounded-xl transition-colors",
@@ -26,13 +26,7 @@ export const buttonLinkVariants = cva(
 );
 
 export type ButtonLinkProps = PropsWithChildren<
-  {
-    class?: string;
-    href?: string;
-    target?: string;
-    rel?: string;
-    [key: string]: any;
-  } & VariantProps<typeof buttonLinkVariants>
+  JSX.IntrinsicElements["a"] & VariantProps<typeof buttonLinkVariants>
 >;
 
 export const ButtonLink: FC<ButtonLinkProps> = ({
