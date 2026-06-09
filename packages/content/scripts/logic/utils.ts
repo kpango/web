@@ -19,7 +19,6 @@ export function writeIfChanged(filePath: string, newContent: string) {
   }
 
   fs.writeFileSync(filePath, newContent);
-  console.log(`Updated ${path.basename(filePath)}`);
 }
 
 export const stripMarkdown = (md: string) =>
